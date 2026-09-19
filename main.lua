@@ -115,4 +115,7 @@ function M:peek(job)
 	}))
 end
 
-return { preload = M.preload, peek = M.peek }
+return {
+	preload = function(job) return M:preload(job) end,
+	peek = function(job) return M:peek(job) end,
+}
