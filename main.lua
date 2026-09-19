@@ -6,7 +6,10 @@ local M = {}
 local RENDER_W = 600
 
 local function fail(job, s)
-	ya.preview_widget(job, ui.Text.parse(s):area(job.area))
+	ya.err("pdfview: " .. s)
+	pcall(function()
+		ya.preview_widget(job, ui.Text.parse(s):area(job.area))
+	end)
 end
 
 local function page_count(pdf_path)
@@ -89,7 +92,7 @@ function M:peek(job)
 	end
 
 	-- image fills all but the last row; the last row is the metadata strip
-	ya.image_show(cache, ui.Rect {
+	ya.image_show(Url(cache), ui.Rect {
 		x = job.area.x, y = job.area.y,
 		w = job.area.w, h = math.max(1, job.area.h - 1),
 	})
