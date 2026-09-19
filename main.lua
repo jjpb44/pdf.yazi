@@ -48,7 +48,7 @@ local function render_page(job, page)
 		"-jpeg", "-singlefile",
 		"-f", tostring(page), "-l", tostring(page),
 		"-scale-to-x", tostring(RENDER_W), "-scale-to-y", "-1",
-		tostring(job.file.url), cache,
+		tostring(job.file.url), tostring(root),
 	})
 		:stdin(Command.NULL)
 		:stdout(Command.NULL)
@@ -61,7 +61,7 @@ local function render_page(job, page)
 	end
 	os.remove(lock)
 
-	if not (ok and out[1] and out[1].status.success) then
+	if not (ok and out[1] and out[1].status.success) or not fs.cha(cache) then
 		fs.remove("file", cache)
 		return nil
 	end
