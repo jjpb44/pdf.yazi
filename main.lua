@@ -25,12 +25,12 @@ local function render_page(job, page)
 	if not root then
 		return nil
 	end
-	local cache = tostring(root) .. ".jpg"
+	local cache = Url(tostring(root) .. ".jpg")
 	if fs.cha(cache) then
 		return cache
 	end
 
-	local lock = cache .. ".lock"
+	local lock = tostring(cache) .. ".lock"
 	local deadline = ya.time() + 2
 	local held = false
 	while ya.time() < deadline do
