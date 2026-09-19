@@ -70,19 +70,12 @@ local function render_page(job, page)
 end
 
 function M:preload(job)
-	if job.mime ~= "application/pdf" then
-		return false
-	end
 	return render_page(job, 1) ~= nil
 end
 
 function M:peek(job)
 	ya.err("pdfview: PEEK entered skip=" .. tostring(job.skip))
 	ya.notify({ title = "PEEK", content = "entered", timeout = 2 })
-
-	if job.mime ~= "application/pdf" then
-		return fail(job, "pdfview: not a pdf")
-	end
 
 	local pages = page_count(tostring(job.file.url))
 	local page = math.max(1, math.min((job.skip or 0) + 1, pages))
