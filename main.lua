@@ -6,7 +6,7 @@ local M = {}
 local RENDER_W = 600
 
 local function fail(job, s)
-	ya.preview_widget(job, ui.Text.parse(s):area(job.area):wrap(ui.Wrap.YES))
+	ya.preview_widget(job, ui.Text.parse(s):area(job.area))
 end
 
 local function page_count(pdf_path)
